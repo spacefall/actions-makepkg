@@ -1,5 +1,10 @@
 FROM archlinux:base-devel
 
+COPY entrypoint.sh /entrypoint.sh
+
+# Fix script permissions
+RUN chmod 755 /entrypoint.sh
+
 # Run upgrade
 RUN pacman -Syu --noconfirm
 
@@ -26,10 +31,5 @@ RUN mkdir .gnupg; touch .gnupg/gpg.conf; echo $'keyserver hkp://keyserver.ubuntu
 
 # Install yay
 RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
-
-COPY entrypoint.sh /entrypoint.sh
-
-# Fix script permissions
-RUN chmod 755 /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

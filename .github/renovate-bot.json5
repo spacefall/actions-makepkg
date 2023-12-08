@@ -1,6 +1,0 @@
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  username: "zagg-bot[bot]",
-  gitAuthor: "zagg-bot <121982232+zagg-bot[bot]@users.noreply.github.com>",
-  repositories: ["zaggash/docker-makepkg"]
-}

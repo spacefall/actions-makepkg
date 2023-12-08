@@ -1,43 +1,34 @@
-FROM archlinux:base-devel@sha256:19cbb2b7e11cc9f3a3f0ed2dc13236f8d21ff8f0a967e17dad2cec9474b247f0
+FROM archlinux:base-devel
 
-COPY run.sh /run.sh
+# Fix script permissions
+RUN chmod 755 /run.sh
 
-RUN \
-  # * Fix script permissions
-  chmod 755 /run.sh && \
-  # * Install needed packages
-  pacman -Syyu --noconfirm --needed \
-      archlinux-keyring \
-      cmake \
-      python \
-      git \
-      rsync && \
-  # * makepkg cannot (and should not) be run as root
-  useradd -m builder && \
-  # * Allow builder to run as root (to install dependencies)
-  echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder && \
-  # * cleanup
-  rm -Rf /var/cache/pacman/pkg/ && \
-  rm -rf ~/.cache/*
+# Run upgrade
+RUN pacman -Syu --noconfirm
 
-# * Continue execution as builder
+# Install dependencies
+RUN pacman -Syu --noconfirm --needed archlinux-keyring cmake python git rsync
+
+# Create builder user
+RUN useradd -m builder
+
+# Allow builder to run as root
+RUN echo "builder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/builder
+
+# Cleanup
+RUN rm -rf /var/cache/pacman/pkg/; rm -rf ~/.cache/*
+
+# Continue execution as builder
 USER builder
 WORKDIR /home/builder
 
-RUN \
-  # * Auto-fetch GPG keys (for checking signatures)
-  mkdir .gnupg && \
-  touch .gnupg/gpg.conf && \
-  echo "keyserver-options auto-key-retrieve" > .gnupg/gpg.conf && \
-  find ~/.gnupg -type f -exec chmod 600 {} \; && \
-  find ~/.gnupg -type d -exec chmod 700 {} \; && \
-  # * Install yay for AUR deps
-  git clone https://aur.archlinux.org/yay-bin.git && \
-  cd yay-bin && \
-  makepkg -sri --clean --noconfirm --needed && \
-  cd .. && rm -Rf yay-bin
+# Auto-fetch GPG keys (for checking signatures)
+RUN mkdir .gnupg; touch .gnupg/gpg.conf; echo $'keyserver hkp://keyserver.ubuntu.com:80\nkeyserver-options auto-key-retrieve' | tee .gnupg/gpg.conf
+#  find ~/.gnupg -type f -exec chmod 600 {} \; && \
+#  find ~/.gnupg -type d -exec chmod 700 {} \; && \
 
-# Build the package
-WORKDIR /pkg
-ENTRYPOINT ["/bin/bash"]
-CMD ["/run.sh"]
+# Install yay
+RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,0 +1,43 @@
+name: Actions Makepkg
+description: Builds a PKGBUILD
+
+branding:
+  icon: package
+  color: green
+
+inputs:
+  dir:
+    description: >-
+      Path to PKGBUILD directory.
+    required: true
+  command:
+    description: >-
+      Command to run before building.
+    required: false
+  pgpkey:
+    description: >-
+      PGP key to use for signing the package.
+      Should be a base64 encoded string.
+    required: false
+  march:
+    description: >-
+      Architecture to build for.
+      Defaults to "x86-64".
+    required: false
+    default: 'x86-64'
+  mtune:
+    description: >-
+      Tunes the build for a specific CPU.
+      Defaults to "generic".
+    required: false
+    default: 'generic'
+
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.dir }}
+    - ${{ inputs.command }}
+    - ${{ inputs.pgpkey }}
+    - ${{ inputs.march }}
+    - ${{ inputs.mtune }}

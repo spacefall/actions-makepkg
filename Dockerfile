@@ -1,7 +1,7 @@
 FROM archlinux:base-devel
 
 # Fix script permissions
-RUN chmod 755 /run.sh
+RUN chmod 755 /entrypoint.sh
 
 # Run upgrade
 RUN pacman -Syu --noconfirm

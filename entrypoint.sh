@@ -28,7 +28,16 @@ if [[ ! -e $directory/PKGBUILD ]]; then
     exit 1
 fi
 
+# Give builder permissions to write to $directory
 sudo chown -R builder "$directory"
+# And also the home directory
+sudo chown -R builder /github/home
+
+# Setting gpg settings on /github/home instead of the actual home directory
+mkdir /github/home/.gnupg
+touch /github/home/.gnupg/gpg.conf
+echo $'keyserver hkp://keyserver.ubuntu.com:80\nkeyserver-options auto-key-retrieve' | tee /github/home/.gnupg/gpg.conf
+
 cd $directory
 
 # Makes a copy of the source directory

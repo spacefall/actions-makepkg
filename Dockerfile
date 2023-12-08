@@ -25,7 +25,7 @@ USER builder
 WORKDIR /home/builder
 
 # Auto-fetch GPG keys (for checking signatures)
-RUN mkdir .gnupg; touch .gnupg/gpg.conf; echo $'keyserver hkp://keyserver.ubuntu.com:80\nkeyserver-options auto-key-retrieve' | tee .gnupg/gpg.conf
+#RUN mkdir .gnupg; touch .gnupg/gpg.conf; echo $'keyserver hkp://keyserver.ubuntu.com:80\nkeyserver-options auto-key-retrieve' | tee .gnupg/gpg.conf
 #  find ~/.gnupg -type f -exec chmod 600 {} \; && \
 #  find ~/.gnupg -type d -exec chmod 700 {} \; && \
 

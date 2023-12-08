@@ -25,7 +25,7 @@ RUN mkdir .gnupg; touch .gnupg/gpg.conf; echo $'keyserver hkp://keyserver.ubuntu
 #  find ~/.gnupg -type d -exec chmod 700 {} \; && \
 
 # Install yay
-RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
 
 COPY entrypoint.sh /entrypoint.sh
 

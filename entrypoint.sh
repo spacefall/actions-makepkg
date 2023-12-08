@@ -30,7 +30,7 @@ fi
 
 # Makes a copy of the source directory
 #echo "* Copy PKGBUILD ..."
-ehco "* Copying source directory"
+echo "* Copying source directory"
 rsync -av --exclude=".*" $directory /tmp/pkg/
 cd /tmp/pkg
 

@@ -8,7 +8,7 @@ branding:
 inputs:
   dir:
     description: >-
-      Path to PKGBUILD directory.
+      Absolute path to PKGBUILD directory.
     required: true
   command:
     description: >-

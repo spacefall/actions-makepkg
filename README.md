@@ -7,7 +7,7 @@ Builds an Arch package from github actions
 ### `dir`
 
 **Required** 
-Path to PKGBUILD directory.
+Absolute path to PKGBUILD directory.
 
 ### `command`
 

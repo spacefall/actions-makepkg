@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-directory=$(readlink "$1" -f)
+directory=$(readlink "/github/workspace/$1" -f)
 command=$2
 pgpkey=$3
 
@@ -28,11 +28,13 @@ if [[ ! -e $directory/PKGBUILD ]]; then
     exit 1
 fi
 
+sudo chown -R builder "$directory"
+
 # Makes a copy of the source directory
 #echo "* Copy PKGBUILD ..."
-echo "* Copying source directory"
-rsync -av --exclude=".*" $directory /tmp/pkg/
-cd /tmp/pkg
+#echo "* Copying source directory"
+#rsync -av --exclude=".*" $directory /tmp/pkg/
+#cd /tmp/pkg
 
 # Install dependencies using yay
 echo "* Installing dependencies"
@@ -68,6 +70,6 @@ namcap "${pkgname}"*"${PKGEXT}"
 pacman -Qip "${pkgname}"*"${PKGEXT}"
 pacman -Qlp "${pkgname}"*"${PKGEXT}"
 
-echo "* Moving back provided package"
-sudo chown $(stat -c '%u:%g' $directory/PKGBUILD) ./*.pkg.tar.*
-sudo mv ./*.pkg.tar.* $directory
+#echo "* Moving back provided package"
+#sudo chown $(stat -c '%u:%g' $directory/PKGBUILD) ./*.pkg.tar.*
+#sudo mv ./*.pkg.tar.* $directory

@@ -13,7 +13,7 @@ sudo sed -i 's/COMPRESSZST=(zstd -c -z -q -)/COMPRESSZST=(zstd -c -z -q -T0 -)/g
 sudo sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'$(nproc)'"/g' /etc/makepkg.conf;
 sudo sed -i 's/!lto/lto/g' /etc/makepkg.conf;
 sudo sed -i 's/-fcf-protection/-fcf-protection -fuse-ld=mold -ftree-vectorize/g' /etc/makepkg.conf;
-sudo sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C strip=symbols -C link-arg=-fuse-ld=mold -C target-cpu='$march'/g' /etc/makepkg.conf;
+sudo sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C strip=symbols -C link-arg=-fuse-ld=mold -C target-cpu='$march'"/g' /etc/makepkg.conf;
 
 sudo sed -i 's/-march=x86-64/-march='$march'/g' /etc/makepkg.conf;
 sudo sed -i 's/-mtune=generic/-mtune='$mtune'/g' /etc/makepkg.conf;

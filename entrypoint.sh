@@ -29,6 +29,7 @@ if [[ ! -e $directory/PKGBUILD ]]; then
 fi
 
 sudo chown -R builder "$directory"
+cd $directory
 
 # Makes a copy of the source directory
 #echo "* Copy PKGBUILD ..."

@@ -44,6 +44,8 @@ if [[ -n "$pgpkey" ]]
 then
   echo "* Importing PGP key"
   echo "$pgpkey" | base64 -d | gpg --import -
+  echo "* Initializing lsign-key"
+  pacman-key --init
 fi
 
 # Run commands

@@ -49,7 +49,8 @@ cd $directory
 # Install dependencies using yay
 echo "* Installing dependencies"
 #yay -Syu --noconfirm --ignore filesystem
-yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
+#yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
+yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${checkdepends[@]} ${makedepends[@]}))
 
 # Import PGP key if available
 if [[ -n "$pgpkey" ]]
@@ -71,7 +72,7 @@ fi
 # Build
 echo "* Building"
 # If $pgpkey is empty, don't sign the package
-[ -n "$pgpkey" ] && makepkg --syncdeps --noconfirm --sign || makepkg --syncdeps --noconfirm
+[ -n "$pgpkey" ] && makepkg --sign || makepkg
 
 # Checking
 echo "* Verifying package"

@@ -82,7 +82,7 @@ pacman -Qip "${pkgname}"*"${PKGEXT}"
 pacman -Qlp "${pkgname}"*"${PKGEXT}"
 
 # Sanitizing file name for artifact upload
-rename ":" "_" "${pkgname}"*"${PKGEXT}" -a
+rename ":" "_" "${pkgname}"*"${PKGEXT}" -a || true
 
 #echo "* Moving back provided package"
 #sudo chown $(stat -c '%u:%g' $directory/PKGBUILD) ./*.pkg.tar.*

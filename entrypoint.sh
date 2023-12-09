@@ -72,7 +72,7 @@ fi
 # Build
 echo "* Building"
 # If $pgpkey is empty, don't sign the package
-[ -n "$pgpkey" ] && makepkg --sign || makepkg
+[ -n "$pgpkey" ] && makepkg --sign --nodeps || makepkg --nodeps
 
 # Checking
 echo "* Verifying package"

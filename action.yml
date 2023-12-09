@@ -1,50 +1,23 @@
-name: Actions Makepkg
-description: Builds a PKGBUILD
+name: Actions Makepkg - Package database
+description: Takes packages and creates a new database.
 
 branding:
-  icon: package
+  icon: database
   color: green
 
 inputs:
   dir:
     description: >-
-      Absolute path to PKGBUILD directory.
+      Absolute path to directory containing packages.
     required: true
-  command:
+  reponame:
     description: >-
-      Command to run before building.
-    required: false
-  pgpkey:
-    description: >-
-      PGP key to use for signing the package.
-      Should be a base64 encoded string.
-    required: false
-  march:
-    description: >-
-      Architecture to build for.
-      Defaults to "x86-64".
-    required: false
-    default: 'x86-64'
-  mtune:
-    description: >-
-      Tunes the build for a specific CPU.
-      Defaults to "generic".
-    required: false
-    default: 'generic'
-  skipruntimedeps:
-    description: >-
-      Boolean that specifies if the script should install runtime dependencies or not.
-      Might result in a faster build since less packages are downloaded but might not build at all.
-    required: false
-    default: false
+      Name of repository to create.
+    required: true
 
 runs:
   using: docker
-  image: docker://ghcr.io/spacefall/actions-makepkg:main
+  image: dockerfile
   args:
     - ${{ inputs.dir }}
-    - ${{ inputs.command }}
-    - ${{ inputs.pgpkey }}
-    - ${{ inputs.march }}
-    - ${{ inputs.mtune }}
-    - ${{ inputs.skipruntimedeps }}
+    - ${{ inputs.reponame }}

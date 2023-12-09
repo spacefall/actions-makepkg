@@ -76,9 +76,13 @@ echo "* Building"
 # Checking
 echo "* Verifying package"
 source /etc/makepkg.conf # get PKGEXT
+
 namcap "${pkgname}"*"${PKGEXT}"
 pacman -Qip "${pkgname}"*"${PKGEXT}"
 pacman -Qlp "${pkgname}"*"${PKGEXT}"
+
+# Sanitizing file name for artifact upload
+rename ":" "_" "${pkgname}"*"${PKGEXT}" -a
 
 #echo "* Moving back provided package"
 #sudo chown $(stat -c '%u:%g' $directory/PKGBUILD) ./*.pkg.tar.*

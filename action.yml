@@ -47,3 +47,4 @@ runs:
     - ${{ inputs.pgpkey }}
     - ${{ inputs.march }}
     - ${{ inputs.mtune }}
+    - ${{ inputs.skipruntimedeps }}

@@ -31,6 +31,12 @@ inputs:
       Defaults to "generic".
     required: false
     default: 'generic'
+  skipruntimedeps:
+    description: >-
+      Boolean that specifies if the script should install runtime dependencies or not.
+      Might result in a faster build since less packages are downloaded but might not build at all.
+    required: false
+    default: false
 
 runs:
   using: docker

@@ -47,6 +47,14 @@ cd $directory
 #rsync -av --exclude=".*" $directory /tmp/pkg/
 #cd /tmp/pkg
 
+# Run commands
+if [[ -n "$command" ]]
+then
+  echo "* Running pre-build commands"
+  echo "${command}" > /tmp/cmd.sh
+  bash /tmp/cmd.sh
+fi 
+
 # Install dependencies using yay
 echo "* Installing dependencies"
 #yay -Syu --noconfirm --ignore filesystem
@@ -65,14 +73,6 @@ then
   echo "* Initializing lsign-key"
   pacman-key --init
 fi
-
-# Run commands
-if [[ -n "$command" ]]
-then
-  echo "* Running pre-build commands"
-  echo "${command}" > /tmp/cmd.sh
-  bash /tmp/cmd.sh
-fi 
 
 # Build
 echo "* Building"

@@ -7,6 +7,7 @@ pgpkey=$3
 
 march=$4
 mtune=$5
+skipruntimedeps=$6
 
 # Makepkg.conf edits
 sudo sed -i 's/COMPRESSZST=(zstd -c -z -q -)/COMPRESSZST=(zstd -c -z -q -T0 -)/g' /etc/makepkg.conf
@@ -49,8 +50,12 @@ cd $directory
 # Install dependencies using yay
 echo "* Installing dependencies"
 #yay -Syu --noconfirm --ignore filesystem
-#yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
-yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${checkdepends[@]} ${makedepends[@]}))
+if $skipruntimedeps
+then
+    yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${checkdepends[@]} ${makedepends[@]}))
+else
+    yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
+fi
 
 # Import PGP key if available
 if [[ -n "$pgpkey" ]]

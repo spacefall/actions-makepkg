@@ -28,6 +28,11 @@ Defaults to "x86-64".
 Tunes the build for a specific CPU.  
 Defaults to "generic".
 
+### `skipruntimedeps`
+
+Boolean that specifies if the script should install runtime dependencies or not.
+Might result in a faster build since less packages are downloaded but might not build at all.
+
 ### Example
  ```yml
  uses: spacefall/actions-makepkg@main
@@ -37,4 +42,5 @@ Defaults to "generic".
    pgpkey: $(base64 /path/to/key.pgp)
    march: x86-64-v2
    mtune: skylake
+   skipruntimedeps: false
  ```

@@ -40,7 +40,7 @@ inputs:
 
 runs:
   using: docker
-  image: Dockerfile
+  image: ghcr.io/spacefall/actions-makepkg:main
   args:
     - ${{ inputs.dir }}
     - ${{ inputs.command }}

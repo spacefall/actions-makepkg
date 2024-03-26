@@ -9,7 +9,7 @@ RUN chmod 755 /entrypoint.sh
 RUN pacman -Syu --noconfirm
 
 # Install dependencies
-RUN pacman -Syu --noconfirm --needed archlinux-keyring cmake python git rsync namcap mold
+RUN pacman -Syu --noconfirm --needed archlinux-keyring cmake python git rsync namcap mold sudo fakeroot binutils
 
 # Create builder user
 RUN useradd -m builder

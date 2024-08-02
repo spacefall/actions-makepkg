@@ -16,6 +16,7 @@ sudo sed -i 's/!lto/lto/g' /etc/makepkg.conf;
 sudo sed -i 's/-fcf-protection/-fcf-protection -fuse-ld=mold -ftree-vectorize/g' /etc/makepkg.conf;
 sudo sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C strip=symbols -C link-arg=-fuse-ld=mold -C target-cpu='$march'"/g' /etc/makepkg.conf;
 
+sudo sed -i 's/-O2/-O3/g' /etc/makepkg.conf;
 sudo sed -i 's/-march=x86-64/-march='$march'/g' /etc/makepkg.conf;
 sudo sed -i 's/-mtune=generic/-mtune='$mtune'/g' /etc/makepkg.conf;
 

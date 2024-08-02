@@ -15,7 +15,7 @@ RUN pacman -Syu --noconfirm --needed archlinux-keyring cmake python git rsync na
 RUN pacman -Syu --noconfirm --needed ninja meson go rust unzip zip alsa-lib gtk3 gtk4 libadwaita libxss nss xdg-utils gcc-libs desktop-file-utils hicolor-icon-theme glib2 glibc
 
 # Other deps to speedup but still deciding on these
-RUN pacman -Syu --noconfirm --needed npm yarn gnome-shell
+RUN pacman -Syu --noconfirm --needed gnome-shell
 
 # Create builder user
 RUN useradd -m builder

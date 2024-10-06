@@ -36,6 +36,6 @@ WORKDIR /home/builder
 #  find ~/.gnupg -type d -exec chmod 700 {} \; && \
 
 # Install yay
-RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si --noconfirm && cd .. && rm -rf yay-bin
+RUN git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 
 ENTRYPOINT ["/entrypoint.sh"]

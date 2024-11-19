@@ -61,9 +61,9 @@ echo "==> Installing dependencies"
 #yay -Syu --noconfirm --ignore filesystem
 if $skipruntimedeps
 then
-    yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${checkdepends[@]} ${makedepends[@]}))
+    yay -Sy --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${checkdepends[@]} ${makedepends[@]}))
 else
-    yay -S --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
+    yay -Sy --noconfirm $(pacman --deptest $(source ./PKGBUILD && echo ${depends[@]} ${checkdepends[@]} ${makedepends[@]}))
 fi
 
 # Import PGP key if available
